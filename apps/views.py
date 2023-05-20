@@ -4,28 +4,16 @@ Copyright (c) 2019 - present AppSeed.us
 """
 
 # Flask modules
-from flask   import Flask, render_template, request, flash, redirect, url_for, jsonify
-import json
+from flask   import  render_template, request, flash, redirect, url_for
+
 from jinja2  import TemplateNotFound
 from .models import *
 from flask_login import login_user, login_required, current_user, logout_user
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_wtf import FlaskForm
-from wtforms import FileField, SubmitField
-from werkzeug.utils import secure_filename
-import os
-from wtforms.validators import InputRequired
-from random import sample 
-
-import sys
 from .controller import controller
 
 # App modules
 from apps import app
-import random
-from datetime import datetime, timedelta
-
-import requests
 import re
 
 
