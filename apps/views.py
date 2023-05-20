@@ -108,7 +108,7 @@ def register():
         
 
 
-        return redirect(url_for('route_default'))
+        return redirect(url_for('index'))
     
     return render_template('accounts/register.html')
        
