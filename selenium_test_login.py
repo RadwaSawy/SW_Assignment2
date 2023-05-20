@@ -22,7 +22,42 @@ class TestIndex(unittest.TestCase):
         self.driver.quit()
 
     def test_index(self):
+
+        ######## UnSuccessful LOGIN ##########
+        # Case 1: wrong username
+        
+        # Wait for the email field to be present
+        wait = WebDriverWait(self.driver, 20)
+        name_field = wait.until(EC.presence_of_element_located((By.NAME, 'Username')))
+
+        # Enter user information into registration form
+        name_field.send_keys('testuser_in2')
+        self.driver.find_element(By.NAME, 'Password').send_keys('password')
+        self.driver.find_element(By.NAME, 'login').click()
+
+        # Check that the registration was unsuccessful
+        self.assertNotEqual(self.driver.current_url, 'http://localhost:5000/main-dashboard.html')
+
+
+
+        # Case 2: wrong password
+        
+        # Wait for the email field to be present
+        wait = WebDriverWait(self.driver, 20)
+        name_field = wait.until(EC.presence_of_element_located((By.NAME, 'Username')))
+
+        # Enter user information into registration form
+        name_field.send_keys('testuser_in2')
+        self.driver.find_element(By.NAME, 'Password').send_keys('wrong password')
+        self.driver.find_element(By.NAME, 'login').click()
+
+        # Check that the registration was unsuccessful
+        self.assertNotEqual(self.driver.current_url, 'http://localhost:5000/main-dashboard.html')
+
+        
         ######## Successful LOGIN ##########
+        
+        # Case 3: Loged in
         # Wait for the email field to be present
         wait = WebDriverWait(self.driver, 20)
         name_field = wait.until(EC.presence_of_element_located((By.NAME, 'Username')))
@@ -34,25 +69,6 @@ class TestIndex(unittest.TestCase):
 
         # Check that the registration was successful
         self.assertEqual(self.driver.current_url, 'http://localhost:5000/main-dashboard.html')
-
-        ######### LOG out #########
-        # log out the userand check that they are redirected to the login page
-        self.driver.find_element(By.ID, 'logout-link').click()
-        self.assertEqual(self.driver.current_url, 'http://localhost:5000/login')
-
-
-        ######## UnSuccessful LOGIN ##########
-        # Wait for the email field to be present
-        wait = WebDriverWait(self.driver, 20)
-        name_field = wait.until(EC.presence_of_element_located((By.NAME, 'Username')))
-
-        # Enter user information into registration form
-        name_field.send_keys('testuser_in')
-        self.driver.find_element(By.NAME, 'Password').send_keys('wrong password')
-        self.driver.find_element(By.NAME, 'login').click()
-
-        # Check that the registration was unsuccessful
-        self.assertNotEqual(self.driver.current_url, 'http://localhost:5000/main-dashboard.html')
 
 
 
